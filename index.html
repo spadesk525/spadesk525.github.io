@@ -242,6 +242,16 @@
 </ul>
 <p><img src="http://qamsam2f6.bkt.clouddn.com/three_states.png" alt="36331-f80"></p>
 <p>RRC_IDLE态下的移动性，是<span color="red" font="bold">基于UE控制</span>的移动性,UE会执行<span color="red" font="bold">邻区测量</span>和<span color="red" font="bold">小区选择重选</span></p>
+<p>基于UE控制的移动性，系统消息是UE进行移动性控制的重要依据，在4G系统中，系统消息被分为MIB和多个SIBs，其中有多个SIBs携带与小区重选相关的信息。比如：</p>
+<ul>
+<li>SIB3 : 4G<span font="bold" color="red">服务</span>小区相关</li>
+<li>SIB4:  4G<span font="bold" color="red">同频</span>小区相关</li>
+<li>SIB5: 4G<span font="bold" color="red">异频</span>小区相关</li>
+<li>SIB6: UTRA相关</li>
+<li>SIB7: GREAN相关</li>
+<li>SIB8: CDMA相关</li>
+<li>SIB24: NR相关</li>
+</ul>
 <p>UE可以在EUTRA RRC_IDLE态和NR RRC_IDLE态之间进行双向重选操作。</p>
 <p><img src="4G5G%E4%BA%92%E6%93%8D%E4%BD%9C-%E9%87%8D%E9%80%89.assets/image-20200520215712211-1589983101015.png" alt="image-20200520215712211"></p>
 
