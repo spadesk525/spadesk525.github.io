@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://qamsam2f6.bkt.clouddn.com/36331f80-4-2-1-5.png">
 <meta property="og:image" content="http://qamsam2f6.bkt.clouddn.com/36304d60-5.2.3.1.png">
 <meta property="article:published_time" content="2020-05-20T04:40:26.000Z">
-<meta property="article:modified_time" content="2020-05-26T16:05:37.391Z">
+<meta property="article:modified_time" content="2020-05-27T00:58:34.013Z">
 <meta property="article:author" content="Spades_K">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://qamsam2f6.bkt.clouddn.com/three_states.png">
@@ -189,6 +189,9 @@
 </ul>
 <p><img src="http://qamsam2f6.bkt.clouddn.com/three_states.png" alt="36331-f80"></p>
 <p>RRC_IDLE态下的移动性，是<span color="red" font="bold">基于UE控制</span>的移动性,UE会执行<span color="red" font="bold">邻区测量</span>和<span color="red" font="bold">小区选择重选</span></p>
+<p>NSA组网下：由于涉及到经PCC(Primary CC，MeNB的主载波，是PCell所对应的CC)锚点选择后进行<strong>SCG载波管理</strong>(PSCell的配置)及<strong>辅站移动性管理</strong>，5G部分不涉及空闲态移动性管理。</p>
+<p><strong>注：</strong>NSA场景下,辅站的移动性管理由辅站负责，但涉及的测量控制、RRC连接重配等信令，UE和辅站间的信令消息都通过LTE进行转发。</p>
+<p>SA组网下：5G空闲态及连接态移动性管理均涉及。</p>
 <p>基于UE控制的移动性，系统消息是UE进行移动性控制的重要依据，在4G系统中，系统消息被分为MIB和多个SIBs，其中有多个SIBs携带与小区重选相关的信息。比如：</p>
 <ul>
 <li>SIB3 : 4G<span font="bold" color="red">服务</span>小区相关</li>
@@ -199,6 +202,8 @@
 <li>SIB8: CDMA相关</li>
 <li>SIB24: NR相关</li>
 </ul>
+<a id="more"></a>
+
 <p><strong>不同状态间相互转换：</strong></p>
 <p>refer : 36331 f80</p>
 <p><img src="http://qamsam2f6.bkt.clouddn.com/image-20200520215712211.png" alt="image-20200520215712211"></p>
@@ -245,6 +250,7 @@
 <p><img src="http://qamsam2f6.bkt.clouddn.com/36304d60-5.2.3.1.png" alt="36304-d60 5.2.3.1NOTE"></p>
 <p>依据协议，通过系统消息或专用信令为UE提供的不同频率或不同RATs优先级，不用于小区选择流程。</p>
 <p>这两者是否存在冲突?</p>
+<p>咨询老师，RRCConnectionRelease之后还是走小区重选流程，而RRC连接重建之后，由于情况紧急，需要尽快接入，进行小区选择流程。</p>
 </li>
 </ol>
 

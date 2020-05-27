@@ -242,6 +242,9 @@
 </ul>
 <p><img src="http://qamsam2f6.bkt.clouddn.com/three_states.png" alt="36331-f80"></p>
 <p>RRC_IDLE态下的移动性，是<span color="red" font="bold">基于UE控制</span>的移动性,UE会执行<span color="red" font="bold">邻区测量</span>和<span color="red" font="bold">小区选择重选</span></p>
+<p>NSA组网下：由于涉及到经PCC(Primary CC，MeNB的主载波，是PCell所对应的CC)锚点选择后进行<strong>SCG载波管理</strong>(PSCell的配置)及<strong>辅站移动性管理</strong>，5G部分不涉及空闲态移动性管理。</p>
+<p><strong>注：</strong>NSA场景下,辅站的移动性管理由辅站负责，但涉及的测量控制、RRC连接重配等信令，UE和辅站间的信令消息都通过LTE进行转发。</p>
+<p>SA组网下：5G空闲态及连接态移动性管理均涉及。</p>
 <p>基于UE控制的移动性，系统消息是UE进行移动性控制的重要依据，在4G系统中，系统消息被分为MIB和多个SIBs，其中有多个SIBs携带与小区重选相关的信息。比如：</p>
 <ul>
 <li>SIB3 : 4G<span font="bold" color="red">服务</span>小区相关</li>
@@ -252,55 +255,9 @@
 <li>SIB8: CDMA相关</li>
 <li>SIB24: NR相关</li>
 </ul>
-<p><strong>不同状态间相互转换：</strong></p>
-<p>refer : 36331 f80</p>
-<p><img src="http://qamsam2f6.bkt.clouddn.com/image-20200520215712211.png" alt="image-20200520215712211"></p>
-<ul>
-<li>UE可以在EUTRA RRC_IDLE态和NR RRC_IDLE态之间进行<span>双向</span>重选操作。</li>
-<li>对于连接到5GC的UE,若处于EUTRA RRC INACTIVE，则可以<span>单向</span>重选到NR RRC IDLE态</li>
-<li>若处于 NR RRC INACTIVE态则可以单向重选到 EUTRA RRC IDLE态</li>
-<li>一个处于RRC INACTIVE态的UE，当进入其他RAT或者改变了CN类型，则UE进入RRC IDLE态。</li>
-</ul>
-<p><img src="http://qamsam2f6.bkt.clouddn.com/36331f804-2-1-3.png" alt="image-20200526222919870"></p>
-<ul>
-<li><p>UE处于 RRC INACTIVE 态（4G连接到5GC时），可以<strong>单向</strong>重选到UTRA IDLE态，或GSM_idle态/GPRS  _Packet IDLE态</p>
-<p><img src="http://qamsam2f6.bkt.clouddn.com/36331f804-2-1-4.png" alt="image-20200526223437218"></p>
-</li>
-<li><p>当UE处于RRC INACTIVE态(4G连接到5GC)时，可以单向重选到1XRTT Domant，或者HRPD IDLE态</p>
-</li>
-</ul>
-<p><img src="http://qamsam2f6.bkt.clouddn.com/36331f80-4-2-1-5.png" alt="image-20200526223846136"></p>
-<ul>
-<li>当UE处于RRC INACTIVE态(4G 连接到5GC)时，可以单向重选到4G(连接到EPC)RRC IDLE态。</li>
-</ul>
-<p>AS应该在哪些RATs中进行小区选择，可以通过NAS来控制，比如：可以指定与选择的PLMN相关联的RATs，和维护一个禁止注册区的list,以及一个等效PLMN的list。</p>
-<p><strong>小区选择</strong></p>
-<p>当UE从连接态转移到空闲态时，需要进行小区选择，选择一个Suitable Cell驻留。UE进行小区选择时，需要判断小区是否满足小区选择规则，小区选择规则（又称S规则）。</p>
-<p>小区选择流程：</p>
-<ol>
-<li><p>根据在RRC Connection Release信息中分配的频点信息选择Suitable Cell驻留。</p>
-</li>
-<li><p>若选不到Suitable Cell，则尝试选择在连接态时所在的最后一个小区，作为Suitable Cell驻留。</p>
-</li>
-<li><p>若仍选不到Suitable Cell，则尝试采用Stored Information Cell Selection方式选择小区，寻找Suitable Cell驻留。</p>
-</li>
-<li><p>若仍选不到Suitable Cell，则启用Initial Cell Selection方式选择小区，寻找Suitable Cell驻留。</p>
-</li>
-<li><p>若Initial Cell Selection方式也选不到Suitable Cell，UE将进入Any Cell Selection State。</p>
-<p>处于Any Cell Selection State状态下的UE会一直尝试搜索Acceptable Cell。搜索到Acceptable  Cell后，UE将选择在该小区驻留下来，获得限制服务，同时也会周期性地使用Initial Cell Selection方式搜索Suitable  cell。</p>
-</li>
-</ol>
-<p>小区选择准则(又称S准则)：<br>$$<br>Srxlev &gt; 0  and   Squal &gt; 0<br>$$</p>
-<p>$$<br>Srxlev = Qrxlevmeas – (Qrxlevmin + Qrxlevminoffset) – Pcompensation<br>$$</p>
-<p>疑问：</p>
-<ol>
-<li><p>某厂文档，当UE从连接态转移到空闲态时，需要进行小区选择，那么RRCConnectionRelease下发后UE进入空闲态，需进行小区<strong>选择</strong>流程，在RRCConnectionRelease消息中，网络可以通过idleModeMobilityControlInfo字段(可选)，为UE配置重选专用优先级。其中T320也是可选配置。</p>
-<p><img src="http://qamsam2f6.bkt.clouddn.com/36304d60-5.2.3.1.png" alt="36304-d60 5.2.3.1NOTE"></p>
-<p>依据协议，通过系统消息或专用信令为UE提供的不同频率或不同RATs优先级，不用于小区选择流程。</p>
-<p>这两者是否存在冲突?</p>
-</li>
-</ol>
-
+        
+          <a class="article-more-a" href="/2020/05/20/4G5G%E4%BA%92%E6%93%8D%E4%BD%9C-%E9%87%8D%E9%80%89/#more">more >></a>
+        
       
 
       
