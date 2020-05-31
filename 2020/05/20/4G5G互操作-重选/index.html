@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://qamsam2f6.bkt.clouddn.com/36331f80-4-2-1-5.png">
 <meta property="og:image" content="http://qamsam2f6.bkt.clouddn.com/36304d60-5.2.3.1.png">
 <meta property="article:published_time" content="2020-05-20T04:40:26.000Z">
-<meta property="article:modified_time" content="2020-05-27T00:58:34.013Z">
+<meta property="article:modified_time" content="2020-05-27T05:50:11.739Z">
 <meta property="article:author" content="Spades_K">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://qamsam2f6.bkt.clouddn.com/three_states.png">
@@ -243,10 +243,11 @@
 </li>
 </ol>
 <p>小区选择准则(又称S准则)：<br>$$<br>Srxlev &gt; 0  and   Squal &gt; 0<br>$$</p>
-<p>$$<br>Srxlev = Qrxlevmeas – (Qrxlevmin + Qrxlevminoffset) – Pcompensation<br>$$</p>
+<p>$$<br>Srxlev = Qrxlevmeas – (Qrxlevmin + Qrxlevminoffset) – Pcompensation - Qoffsettemp<br>$$</p>
+<p>$$<br>Squal = Qqualmeas – (Qqualmin + Qqualminoffset) - Qoffsettemp<br>$$</p>
 <p>疑问：</p>
 <ol>
-<li><p>某厂文档，当UE从连接态转移到空闲态时，需要进行小区选择，那么RRCConnectionRelease下发后UE进入空闲态，需进行小区<strong>选择</strong>流程，在RRCConnectionRelease消息中，网络可以通过idleModeMobilityControlInfo字段(可选)，为UE配置重选专用优先级。其中T320也是可选配置。</p>
+<li><p>先前查阅文档，当UE从连接态转移到空闲态时，需要进行小区选择，那么RRCConnectionRelease下发后UE进入空闲态，需进行小区<strong>选择</strong>流程，在RRCConnectionRelease消息中，网络可以通过idleModeMobilityControlInfo字段(可选)，为UE配置重选专用优先级。其中T320也是可选配置。</p>
 <p><img src="http://qamsam2f6.bkt.clouddn.com/36304d60-5.2.3.1.png" alt="36304-d60 5.2.3.1NOTE"></p>
 <p>依据协议，通过系统消息或专用信令为UE提供的不同频率或不同RATs优先级，不用于小区选择流程。</p>
 <p>这两者是否存在冲突?</p>
@@ -366,8 +367,8 @@
     </a>
   
   
-    <a href="/2020/05/12/%E8%87%B4%E5%B7%B1%E7%9C%81%E8%A8%80/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">开篇</div>
+    <a href="/2020/05/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
       <i class="icon-circle-right"></i>
     </a>
   
